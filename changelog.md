@@ -1,1 +1,2 @@
 - Switch to YACL for configuration
+- Fix rendering when on inventory screen
