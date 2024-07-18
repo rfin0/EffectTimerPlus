@@ -2,7 +2,7 @@ package dev.terminalmc.effecttimerplus.mixin;
 
 import com.google.common.collect.Ordering;
 import dev.terminalmc.effecttimerplus.config.Config;
-import dev.terminalmc.effecttimerplus.util.MiscUtil;
+import dev.terminalmc.effecttimerplus.util.IndicatorUtil;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -65,25 +65,28 @@ public class MixinGui {
                         y += 26;
                     }
 
+                    Config options = Config.get();
                     // Render potency overlay
-                    if (Config.get().potencyEnabled && effectInstance.getAmplifier() > 0) {
-                        String label = MiscUtil.getAmplifierAsString(effectInstance.getAmplifier());
+                    if (options.potencyEnabled && effectInstance.getAmplifier() > 0) {
+                        String label = IndicatorUtil.getAmplifierAsString(effectInstance.getAmplifier());
                         int labelWidth = minecraft.font.width(label);
-                        int posX = x + MiscUtil.getTextOffsetX(Config.get().getPotencyLocation(), labelWidth);
-                        int posY = y + MiscUtil.getTextOffsetY(Config.get().getPotencyLocation());
+                        int posX = x + IndicatorUtil.getTextOffsetX(options.potencyLocation, labelWidth);
+                        int posY = y + IndicatorUtil.getTextOffsetY(options.potencyLocation);
                         graphics.fill(posX, posY, posX + labelWidth, posY + minecraft.font.lineHeight - 1,
-                                Config.get().getPotencyBackColor());
-                        graphics.drawString(minecraft.font, label, posX, posY, Config.get().getPotencyColor(), false);
+                                options.potencyBackColor);
+                        graphics.drawString(minecraft.font, label, posX, posY, options.potencyColor, false);
                     }
                     // Render timer overlay
-                    if (Config.get().timerEnabled && (Config.get().timerEnabledAmbient || !effectInstance.isAmbient())) {
-                        String label = MiscUtil.getDurationAsString(effectInstance.getDuration());
+                    if (options.timerEnabled && (options.timerEnabledAmbient || !effectInstance.isAmbient())) {
+                        String label = IndicatorUtil.getDurationAsString(effectInstance.getDuration());
                         int labelWidth = minecraft.font.width(label);
-                        int posX = x + MiscUtil.getTextOffsetX(Config.get().getTimerLocation(), labelWidth);
-                        int posY = y + MiscUtil.getTextOffsetY(Config.get().getTimerLocation());
+                        int posX = x + IndicatorUtil.getTextOffsetX(options.timerLocation, labelWidth);
+                        int posY = y + IndicatorUtil.getTextOffsetY(options.timerLocation);
                         graphics.fill(posX, posY, posX + labelWidth, posY + minecraft.font.lineHeight - 1,
-                                Config.get().getTimerBackColor());
-                        int color = MiscUtil.getTimerColor(effectInstance);
+                                options.timerBackColor);
+                        int color = IndicatorUtil.getTimerColor(effectInstance, options.timerColor,
+                                options.timerWarnEnabled, options.timerWarnTime,
+                                options.timerWarnColor, options.timerFlashEnabled);
                         graphics.drawString(minecraft.font, label, posX, posY, color, false);
                     }
                 }

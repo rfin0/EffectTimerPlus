@@ -1,44 +1,20 @@
 package dev.terminalmc.effecttimerplus.util;
 
-import dev.terminalmc.effecttimerplus.config.Config;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.world.effect.MobEffectInstance;
 
-import java.util.function.IntBinaryOperator;
-import java.util.function.IntUnaryOperator;
-
-public class MiscUtil {
-
-    // ARGB color utils
-    public static final IntUnaryOperator toAlpha = (value) -> (value >> 24 & 255);
-    public static final IntUnaryOperator toRed = (value) -> (value >> 16 & 255);
-    public static final IntUnaryOperator toGreen = (value) -> (value >> 8 & 255);
-    public static final IntUnaryOperator toBlue = (value) -> (value & 255);
-    public static final IntUnaryOperator fromAlpha = (value) -> (value * 16777216);
-    public static final IntUnaryOperator fromRed = (value) -> (value * 65536);
-    public static final IntUnaryOperator fromGreen = (value) -> (value * 256);
-    public static final IntUnaryOperator fromBlue = (value) -> (value);
-    public static final IntBinaryOperator withAlpha = (value, alpha) ->
-            (value - (fromAlpha.applyAsInt(toAlpha.applyAsInt(value))) + alpha);
-    public static final IntBinaryOperator withRed = (value, red) ->
-            (value - (fromRed.applyAsInt(toRed.applyAsInt(value))) + red);
-    public static final IntBinaryOperator withGreen = (value, green) ->
-            (value - (fromGreen.applyAsInt(toGreen.applyAsInt(value))) + green);
-    public static final IntBinaryOperator withBlue = (value, blue) ->
-            (value - (fromBlue.applyAsInt(toBlue.applyAsInt(value))) + blue);
-
+public class IndicatorUtil {
     /**
      * @param effectInstance the {@code MobEffectInstance} to get color for.
      * @return the color as defined by mod configuration.
      */
-    public static int getTimerColor(MobEffectInstance effectInstance) {
-        int color = Config.get().getTimerColor();
-        if (Config.get().timerWarnEnabled
+    public static int getTimerColor(MobEffectInstance effectInstance, int color,
+                                    boolean warn, int warnTime, int warnColor, boolean warnFlash) {
+        if (warn
                 && effectInstance.getDuration() != MobEffectInstance.INFINITE_DURATION
-                && effectInstance.getDuration() / 20 <= Config.get().getTimerWarnTime()
-                && (!Config.get().timerFlashEnabled
-                || effectInstance.getDuration() % 20 >= 10)) {
-            color = Config.get().getTimerWarnColor();
+                && effectInstance.getDuration() / 20 <= warnTime
+                && (!warnFlash || effectInstance.getDuration() % 20 >= 10)) {
+            color = warnColor;
         }
         return color;
     }

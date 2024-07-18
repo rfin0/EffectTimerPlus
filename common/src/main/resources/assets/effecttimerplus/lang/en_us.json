@@ -1,3 +1,38 @@
 {
-  "screen.${mod_id}.title.default": "Effect Timer Plus"
+  "${mod_id}.name": "EffectTimerPlus",
+
+  "message.${mod_id}.go_modrinth": "View on Modrinth",
+  "message.${mod_id}.install_yacl": "Install Yet Another Config Lib to access mod options",
+
+  "screen.${mod_id}.options": "EffectTimerPlus Options",
+
+  "option.${mod_id}.timer": "Time",
+  "option.${mod_id}.timer.enabled": "Indicator",
+  "option.${mod_id}.timer.ambient.enabled": "Indicator (Ambient/Beacon)",
+  "option.${mod_id}.timer.warn.enabled": "Warning Color",
+  "option.${mod_id}.timer.warn.flash.enabled": "Warning Flash",
+  "option.${mod_id}.timer.color": "Color",
+  "option.${mod_id}.timer.color.back": "Background Color",
+  "option.${mod_id}.timer.warn.color": "Warning Color Flash",
+  "option.${mod_id}.timer.warn.time": "Warning Time",
+  "option.${mod_id}.timer.warn.time.value": "%d sec",
+  "option.${mod_id}.timer.location": "Location",
+
+  "option.${mod_id}.potency": "Potency",
+  "option.${mod_id}.potency.enabled": "Indicator",
+  "option.${mod_id}.potency.color.back": "Background color",
+  "option.${mod_id}.potency.color": "Color",
+  "option.${mod_id}.potency.location": "Location",
+
+  "option.${mod_id}.location.0": "Top left",
+  "option.${mod_id}.location.1": "Top center",
+  "option.${mod_id}.location.2": "Top Right",
+  "option.${mod_id}.location.3": "Right center",
+  "option.${mod_id}.location.4": "Bottom right",
+  "option.${mod_id}.location.5": "Bottom center",
+  "option.${mod_id}.location.6": "Bottom left",
+  "option.${mod_id}.location.7": "Left center",
+
+
+  "option.${mod_id}.scale": "Scale"
 }

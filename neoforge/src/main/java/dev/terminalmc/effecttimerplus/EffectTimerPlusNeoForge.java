@@ -1,6 +1,6 @@
 package dev.terminalmc.effecttimerplus;
 
-import dev.terminalmc.effecttimerplus.gui.screen.OptionsScreen;
+import dev.terminalmc.effecttimerplus.gui.screen.ConfigScreenProvider;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
@@ -10,7 +10,7 @@ import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 public class EffectTimerPlusNeoForge {
     public EffectTimerPlusNeoForge() {
         ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class,
-                () -> (mc, parent) -> new OptionsScreen(parent));
+                () -> (mc, parent) -> ConfigScreenProvider.getConfigScreen(parent));
 
         EffectTimerPlus.init();
     }

@@ -40,5 +40,11 @@ issueTrackerURL="${issues_url}" #optional:none
   versionRange="${neoforge_versions}"
   side="CLIENT"
 
+[[dependencies."${mod_id}"]]
+  modId="yacl"
+  type="optional"
+  versionRange="${yacl_versions_neoforge}"
+  side="CLIENT"
+
 # https://docs.neoforged.net/docs/gettingstarted/modfiles/#modstoml
 # https://docs.neoforged.net/docs/misc/updatechecker/

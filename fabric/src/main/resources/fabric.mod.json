@@ -34,7 +34,9 @@
   },
 
   "recommends": {
-    "modmenu": [$modmenu_versions_list]
+    "fabric-api": [$fabric_api_versions_list],
+    "modmenu": [$modmenu_versions_fabric_list],
+    "yacl": [$yacl_versions_fabric_list]
   },
 
   "suggests": {},

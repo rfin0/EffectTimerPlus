@@ -11,6 +11,9 @@ dependencies {
 
     compileOnly("io.github.llamalad7:mixinextras-common:${mixinextras_version}")
     annotationProcessor("io.github.llamalad7:mixinextras-common:${mixinextras_version}")
+
+    // Using NeoForge version here to avoid having to remap
+    implementation("maven.modrinth:1eAoo2KR:${yacl_version_neoforge}")
 }
 
 minecraft {
