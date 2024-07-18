@@ -25,15 +25,13 @@ focus on customization.
 
 #### Features
 
-- Scaling option to change the size of effect icons
 - Fully adjustable text color and opacity
 - Adjustable text background
 - 8 options for text position
 - Optional low-time warning color and flash
 - Option to disable either indicator separately
 - Option to hide timer on ambient (beacon) effects
-- Custom GUI for convenient configuration
-    - Access using [ModMenu](https://modrinth.com/mod/mOgUt4GM/) on Fabric/Quilt
+- Scaling option to change the size of effect icons
 
 <img alt="Showcase" src="https://i.postimg.cc/C1vDrKVN/effectinfo-showcase.png" width="637">
 
