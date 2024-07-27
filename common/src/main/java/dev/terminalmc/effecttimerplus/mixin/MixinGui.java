@@ -2,7 +2,6 @@ package dev.terminalmc.effecttimerplus.mixin;
 
 import com.google.common.collect.Ordering;
 import dev.terminalmc.effecttimerplus.config.Config;
-import dev.terminalmc.effecttimerplus.util.IndicatorUtil;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -19,6 +18,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Collection;
+
+import static dev.terminalmc.effecttimerplus.util.IndicatorUtil.*;
 
 /**
  * Includes derivative work of code used by
@@ -73,26 +74,46 @@ public class MixinGui {
                 Config options = Config.get();
                 // Render potency overlay
                 if (options.potencyEnabled && effectInstance.getAmplifier() > 0) {
-                    String label = IndicatorUtil.getAmplifierAsString(effectInstance.getAmplifier());
+                    String label = getAmplifierAsString(effectInstance.getAmplifier());
                     int labelWidth = minecraft.font.width(label);
-                    int posX = x + IndicatorUtil.getTextOffsetX(options.potencyLocation, labelWidth);
-                    int posY = y + IndicatorUtil.getTextOffsetY(options.potencyLocation);
-                    graphics.fill(posX, posY, posX + labelWidth, posY + minecraft.font.lineHeight - 1,
-                            options.potencyBackColor);
-                    graphics.drawString(minecraft.font, label, posX, posY, options.potencyColor, false);
+                    int posX = x + getTextOffsetX(options.potencyLocation, labelWidth);
+                    int posY = y + getTextOffsetY(options.potencyLocation, minecraft.font.lineHeight);
+
+                    float scale = (float)Config.get().potencyScale;
+                    graphics.pose().pushPose();
+                    graphics.pose().translate(posX * (1 - scale), posY * (1 - scale), 0.0F);
+                    graphics.pose().translate(getScaleTranslateX(options.potencyLocation, labelWidth, scale),
+                            getScaleTranslateY(options.potencyLocation, minecraft.font.lineHeight, scale), 0.0F);
+                    graphics.pose().scale(scale, scale, 0.0F);
+                    if (options.potencyBack) {
+                        graphics.fill(posX - 1, posY - 1, posX + labelWidth,
+                                posY + minecraft.font.lineHeight - 1, options.potencyBackColor);
+                    }
+                    graphics.drawString(minecraft.font, label, posX, posY, options.potencyColor, options.potencyShadow);
+                    graphics.pose().popPose();
                 }
                 // Render timer overlay
                 if (options.timerEnabled && (options.timerEnabledAmbient || !effectInstance.isAmbient())) {
-                    String label = IndicatorUtil.getDurationAsString(effectInstance.getDuration());
+                    String label = getDurationAsString(effectInstance.getDuration());
                     int labelWidth = minecraft.font.width(label);
-                    int posX = x + IndicatorUtil.getTextOffsetX(options.timerLocation, labelWidth);
-                    int posY = y + IndicatorUtil.getTextOffsetY(options.timerLocation);
-                    graphics.fill(posX, posY, posX + labelWidth, posY + minecraft.font.lineHeight - 1,
-                            options.timerBackColor);
-                    int color = IndicatorUtil.getTimerColor(effectInstance, options.timerColor,
+                    int posX = x + getTextOffsetX(options.timerLocation, labelWidth);
+                    int posY = y + getTextOffsetY(options.timerLocation, minecraft.font.lineHeight);
+
+                    int color = getTimerColor(effectInstance, options.timerColor,
                             options.timerWarnEnabled, options.timerWarnTime,
                             options.timerWarnColor, options.timerFlashEnabled);
-                    graphics.drawString(minecraft.font, label, posX, posY, color, false);
+                    float scale = (float)Config.get().timerScale;
+                    graphics.pose().pushPose();
+                    graphics.pose().translate(posX * (1 - scale), posY * (1 - scale), 0.0F);
+                    graphics.pose().translate(getScaleTranslateX(options.timerLocation, labelWidth, scale),
+                            getScaleTranslateY(options.timerLocation, minecraft.font.lineHeight, scale), 0.0F);
+                    graphics.pose().scale(scale, scale, 0.0F);
+                    if (options.timerBack) {
+                        graphics.fill(posX - 1, posY - 1, posX + labelWidth,
+                                posY + minecraft.font.lineHeight - 1, options.timerBackColor);
+                    }
+                    graphics.drawString(minecraft.font, label, posX, posY, color, options.timerShadow);
+                    graphics.pose().popPose();
                 }
             }
         }

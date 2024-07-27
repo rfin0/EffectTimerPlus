@@ -13,7 +13,7 @@ dependencies {
     compileOnly("io.github.llamalad7:mixinextras-neoforge:${mixinextras_version}")
     annotationProcessor("io.github.llamalad7:mixinextras-neoforge:${mixinextras_version}")
 
-    implementation("maven.modrinth:1eAoo2KR:${yacl_version_neoforge}")
+    implementation("dev.isxander:yet-another-config-lib:${yacl_version_neoforge}")
 }
 
 // Temporary workaround for a NeoGradle bug

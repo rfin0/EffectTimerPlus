@@ -1,2 +1,2 @@
-- Switch to YACL for configuration
-- Fix rendering when on inventory screen
+- Support use of vanilla text shadow
+- Allow text scaling relative to icon scale

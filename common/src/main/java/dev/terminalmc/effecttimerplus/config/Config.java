@@ -24,6 +24,12 @@ public class Config {
     public static final double defaultScale = 1.0F;
     public double scale = defaultScale;
 
+    public static final double defaultPotencyScale = 1.0F;
+    public double potencyScale = defaultPotencyScale;
+
+    public static final double defaultTimerScale = 1.0F;
+    public double timerScale = defaultTimerScale;
+
     public static final boolean defaultPotencyEnabled = true;
     public boolean potencyEnabled = defaultPotencyEnabled;
 
@@ -42,10 +48,16 @@ public class Config {
     public static final int defaultTimerWarnTime = 20;
     public int timerWarnTime = defaultTimerWarnTime;
 
-    public static final int defaultPotencyColor = -1711276033;
+    public static final int defaultPotencyColor = -1140850689;
     public int potencyColor = defaultPotencyColor;
 
-    public static final int defaultPotencyBackColor = -1776213727;
+    public static final boolean defaultPotencyShadow = true;
+    public boolean potencyShadow = defaultPotencyShadow;
+
+    public static final boolean defaultPotencyBack = false;
+    public boolean potencyBack = defaultPotencyBack;
+
+    public static final int defaultPotencyBackColor = -1140850689;
     public int potencyBackColor = defaultPotencyBackColor;
 
     public static final int defaultTimerColor = -1711276033;
@@ -53,6 +65,12 @@ public class Config {
 
     public static final int defaultTimerWarnColor = -65536;
     public int timerWarnColor = defaultTimerWarnColor;
+
+    public static final boolean defaultTimerShadow = true;
+    public boolean timerShadow = defaultTimerShadow;
+
+    public static final boolean defaultTimerBack = false;
+    public boolean timerBack = defaultTimerBack;
 
     public static final int defaultTimerBackColor = -1776213727;
     public int timerBackColor = defaultTimerBackColor;

@@ -16,6 +16,8 @@ import java.awt.*;
 import java.util.function.IntBinaryOperator;
 import java.util.function.IntUnaryOperator;
 
+import static dev.terminalmc.effecttimerplus.util.IndicatorUtil.getScaleTranslateX;
+import static dev.terminalmc.effecttimerplus.util.IndicatorUtil.getScaleTranslateY;
 import static dev.terminalmc.effecttimerplus.util.Localization.localized;
 
 public class YaclScreenProvider {
@@ -86,8 +88,28 @@ public class YaclScreenProvider {
                 .controller(option -> ColorControllerBuilder.create(option).allowAlpha(true))
                 .build());
 
+        timerCat.option(Option.<Boolean>createBuilder()
+                .name(localized("option", "timer.shadow.enabled"))
+                .description(OptionDescription.createBuilder().customImage(preview).build())
+                .listener((option, val) -> preview.timerShadow = val)
+                .binding(Config.defaultTimerShadow,
+                        () -> options.timerShadow,
+                        val -> options.timerShadow = val)
+                .controller(option -> BooleanControllerBuilder.create(option).coloured(true))
+                .build());
+
+        timerCat.option(Option.<Boolean>createBuilder()
+                .name(localized("option", "timer.back.enabled"))
+                .description(OptionDescription.createBuilder().customImage(preview).build())
+                .listener((option, val) -> preview.timerBack = val)
+                .binding(Config.defaultTimerBack,
+                        () -> options.timerBack,
+                        val -> options.timerBack = val)
+                .controller(option -> BooleanControllerBuilder.create(option).coloured(true))
+                .build());
+
         timerCat.option(Option.<Color>createBuilder()
-                .name(localized("option", "timer.color.back"))
+                .name(localized("option", "timer.back.color"))
                 .description(OptionDescription.createBuilder().customImage(preview).build())
                 .listener((option, val) -> preview.timerBackColor = fixAlpha(val.getRGB()))
                 .binding(fromArgb(Config.defaultTimerBackColor),
@@ -147,22 +169,42 @@ public class YaclScreenProvider {
                 .build());
 
         potencyCat.option(Option.<Color>createBuilder()
-                .name(localized("option", "potency.color.back"))
-                .description(OptionDescription.createBuilder().customImage(preview).build())
-                .listener((option, val) -> preview.potencyBackColor = fixAlpha(val.getRGB()))
-                .binding(fromArgb(Config.defaultPotencyBackColor),
-                        () -> fromArgb(options.potencyBackColor),
-                        val -> options.potencyBackColor = fixAlpha(val.getRGB()))
-                .controller(option -> ColorControllerBuilder.create(option).allowAlpha(true))
-                .build());
-
-        potencyCat.option(Option.<Color>createBuilder()
                 .name(localized("option", "potency.color"))
                 .description(OptionDescription.createBuilder().customImage(preview).build())
                 .listener((option, val) -> preview.potencyColor = fixAlpha(val.getRGB()))
                 .binding(fromArgb(Config.defaultPotencyColor),
                         () -> fromArgb(options.potencyColor),
                         val -> options.potencyColor = fixAlpha(val.getRGB()))
+                .controller(option -> ColorControllerBuilder.create(option).allowAlpha(true))
+                .build());
+
+        potencyCat.option(Option.<Boolean>createBuilder()
+                .name(localized("option", "potency.shadow.enabled"))
+                .description(OptionDescription.createBuilder().customImage(preview).build())
+                .listener((option, val) -> preview.potencyShadow = val)
+                .binding(Config.defaultPotencyShadow,
+                        () -> options.potencyShadow,
+                        val -> options.potencyShadow = val)
+                .controller(option -> BooleanControllerBuilder.create(option).coloured(true))
+                .build());
+
+        potencyCat.option(Option.<Boolean>createBuilder()
+                .name(localized("option", "potency.back.enabled"))
+                .description(OptionDescription.createBuilder().customImage(preview).build())
+                .listener((option, val) -> preview.potencyBack = val)
+                .binding(Config.defaultPotencyBack,
+                        () -> options.potencyBack,
+                        val -> options.timerBack = val)
+                .controller(option -> BooleanControllerBuilder.create(option).coloured(true))
+                .build());
+
+        potencyCat.option(Option.<Color>createBuilder()
+                .name(localized("option", "potency.back.color"))
+                .description(OptionDescription.createBuilder().customImage(preview).build())
+                .listener((option, val) -> preview.potencyBackColor = fixAlpha(val.getRGB()))
+                .binding(fromArgb(Config.defaultPotencyBackColor),
+                        () -> fromArgb(options.potencyBackColor),
+                        val -> options.potencyBackColor = fixAlpha(val.getRGB()))
                 .controller(option -> ColorControllerBuilder.create(option).allowAlpha(true))
                 .build());
 
@@ -182,12 +224,36 @@ public class YaclScreenProvider {
                 .name(localized("option", "scale"));
 
         scaleCat.option(Option.<Double>createBuilder()
-                .name(localized("option", "scale"))
+                .name(localized("option", "scale.icon"))
                 .description(OptionDescription.createBuilder().customImage(preview).build())
                 .listener((option, val) -> preview.scale = val)
                 .binding(Config.defaultScale,
                         () -> options.scale,
                         val -> options.scale = val)
+                .controller(option -> DoubleSliderControllerBuilder.create(option)
+                        .range(0.5D, 1.5D)
+                        .step(0.1D))
+                .build());
+
+        scaleCat.option(Option.<Double>createBuilder()
+                .name(localized("option", "scale.timer"))
+                .description(OptionDescription.createBuilder().customImage(preview).build())
+                .listener((option, val) -> preview.timerScale = val)
+                .binding(Config.defaultTimerScale,
+                        () -> options.timerScale,
+                        val -> options.timerScale = val)
+                .controller(option -> DoubleSliderControllerBuilder.create(option)
+                        .range(0.5D, 1.5D)
+                        .step(0.1D))
+                .build());
+
+        scaleCat.option(Option.<Double>createBuilder()
+                .name(localized("option", "scale.potency"))
+                .description(OptionDescription.createBuilder().customImage(preview).build())
+                .listener((option, val) -> preview.potencyScale = val)
+                .binding(Config.defaultPotencyScale,
+                        () -> options.potencyScale,
+                        val -> options.potencyScale = val)
                 .controller(option -> DoubleSliderControllerBuilder.create(option)
                         .range(0.5D, 1.5D)
                         .step(0.1D))
@@ -227,6 +293,8 @@ public class YaclScreenProvider {
         // Maintain a copy of all values for instant update by listeners
         Config options = Config.get();
         public double scale = options.scale;
+        public double potencyScale = options.potencyScale;
+        public double timerScale = options.potencyScale;
         public boolean potencyEnabled = options.potencyEnabled;
         public boolean timerEnabled = options.timerEnabled;
         public boolean timerEnabledAmbient = options.timerEnabledAmbient;
@@ -234,9 +302,13 @@ public class YaclScreenProvider {
         public boolean timerFlashEnabled = options.timerFlashEnabled;
         public int timerWarnTime = options.timerWarnTime;
         public int potencyColor = options.potencyColor;
+        public boolean potencyShadow = options.potencyShadow;
+        public boolean potencyBack = options.potencyBack;
         public int potencyBackColor = options.potencyBackColor;
         public int timerColor = options.timerColor;
         public int timerWarnColor = options.timerWarnColor;
+        public boolean timerShadow = options.timerShadow;
+        public boolean timerBack = options.timerBack;
         public int timerBackColor = options.timerBackColor;
         public int potencyLocation = options.potencyLocation;
         public int timerLocation = options.timerLocation;
@@ -282,19 +354,37 @@ public class YaclScreenProvider {
                     String label = IndicatorUtil.getAmplifierAsString(effect.getAmplifier());
                     int labelWidth = mc.font.width(label);
                     int pX = movingX + IndicatorUtil.getTextOffsetX(potencyLocation, labelWidth);
-                    int pY = movingY + IndicatorUtil.getTextOffsetY(potencyLocation);
-                    graphics.fill(pX, pY, pX + labelWidth, pY + mc.font.lineHeight - 1, potencyBackColor);
-                    graphics.drawString(mc.font, label, pX, pY, potencyColor, false);
+                    int pY = movingY + IndicatorUtil.getTextOffsetY(potencyLocation, mc.font.lineHeight);
+
+                    graphics.pose().pushPose();
+                    graphics.pose().translate(pX * (1 - potencyScale), pY * (1 - potencyScale), 0.0F);
+                    graphics.pose().translate(getScaleTranslateX(potencyLocation, labelWidth, (float)potencyScale),
+                            getScaleTranslateY(potencyLocation, mc.font.lineHeight, (float)potencyScale), 0.0F);
+                    graphics.pose().scale((float)potencyScale, (float)potencyScale, 0.0F);
+                    if (potencyBack) {
+                        graphics.fill(pX - 1, pY - 1, pX + labelWidth, pY + mc.font.lineHeight - 1, potencyBackColor);
+                    }
+                    graphics.drawString(mc.font, label, pX, pY, potencyColor, potencyShadow);
+                    graphics.pose().popPose();
                 }
                 // Render timer overlay
                 if (timerEnabled && (timerEnabledAmbient || !effect.isAmbient())) {
                     String label = IndicatorUtil.getDurationAsString(effect.getDuration());
                     int labelWidth = mc.font.width(label);
                     int pX = movingX + IndicatorUtil.getTextOffsetX(timerLocation, labelWidth);
-                    int pY = movingY + IndicatorUtil.getTextOffsetY(timerLocation);
-                    graphics.fill(pX, pY, pX + labelWidth, pY + mc.font.lineHeight - 1, timerBackColor);
+                    int pY = movingY + IndicatorUtil.getTextOffsetY(timerLocation, mc.font.lineHeight);
+
+                    graphics.pose().pushPose();
+                    graphics.pose().translate(pX * (1 - timerScale), pY * (1 - timerScale), 0.0F);
+                    graphics.pose().translate(getScaleTranslateX(timerLocation, labelWidth, (float)timerScale),
+                            getScaleTranslateY(timerLocation, mc.font.lineHeight, (float)timerScale), 0.0F);
+                    graphics.pose().scale((float)timerScale, (float)timerScale, 0.0F);
+                    if (timerBack) {
+                        graphics.fill(pX - 1, pY - 1, pX + labelWidth, pY + mc.font.lineHeight - 1, timerBackColor);
+                    }
                     graphics.drawString(mc.font, label, pX, pY, IndicatorUtil.getTimerColor(effect, timerColor,
-                            timerWarnEnabled, timerWarnTime, timerWarnColor, timerFlashEnabled), false);
+                            timerWarnEnabled, timerWarnTime, timerWarnColor, timerFlashEnabled), timerShadow);
+                    graphics.pose().popPose();
                 }
                 movingX += space;
                 if (movingX + space > maxX) {

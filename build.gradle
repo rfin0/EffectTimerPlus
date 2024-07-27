@@ -59,8 +59,8 @@ subprojects {
             url = "https://api.modrinth.com/maven"
         }
         maven {
-            name = "Shedaniel"
-            url = "https://maven.shedaniel.me/"
+            name "Xander"
+            url "https://maven.isxander.dev/releases"
         }
     }
 

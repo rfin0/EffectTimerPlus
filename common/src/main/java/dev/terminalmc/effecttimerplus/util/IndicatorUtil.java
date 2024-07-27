@@ -4,6 +4,9 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.world.effect.MobEffectInstance;
 
 public class IndicatorUtil {
+    public static final int SPRITE_SIZE = 24;
+    public static final int SPRITE_BORDER = 3;
+
     /**
      * @param effectInstance the {@code MobEffectInstance} to get color for.
      * @return the color as defined by mod configuration.
@@ -77,9 +80,9 @@ public class IndicatorUtil {
      */
     public static int getTextOffsetX(int locIndex, int labelWidth) {
         return switch (locIndex) {
-            case 0, 6, 7 -> 3; // Left
-            case 1, 5 -> 13 - labelWidth / 2; // Center
-            case 2, 3, 4 -> 22 - labelWidth; // Right
+            case 0, 6, 7 -> SPRITE_BORDER; // Left
+            case 1, 5 -> (SPRITE_SIZE / 2) - (labelWidth / 2); // Center
+            case 2, 3, 4 -> SPRITE_SIZE - SPRITE_BORDER - (labelWidth - 1); // Right
             default -> throw new IllegalStateException(
                     "Unexpected positional index outside of allowed range (0-7): " + locIndex);
         };
@@ -92,11 +95,31 @@ public class IndicatorUtil {
      * @return the Y-axis offset.
      * @throws IllegalStateException if the given index is invalid.
      */
-    public static int getTextOffsetY(int locIndex) {
+    public static int getTextOffsetY(int locIndex, int labelHeight) {
         return switch (locIndex) {
-            case 0, 1, 2 -> 3; // Top
-            case 3, 7 -> 9; // Center
-            case 4, 5, 6 -> 14; // Bottom
+            case 0, 1, 2 -> SPRITE_BORDER; // Top
+            case 3, 7 -> (SPRITE_SIZE / 2) - (labelHeight / 2); // Center
+            case 4, 5, 6 -> SPRITE_SIZE - SPRITE_BORDER - (labelHeight - 2); // Bottom
+            default -> throw new IllegalStateException(
+                    "Unexpected positional index outside of allowed range (0-7): " + locIndex);
+        };
+    }
+
+    public static float getScaleTranslateX(int locIndex, int width, float scale) {
+        return switch(locIndex) {
+            case 0, 6, 7 -> 0.0F; // Left
+            case 1, 5 -> (width / 2.0F) * (1 - scale); // Center
+            case 2, 3, 4 -> (width - 1) * (1 - scale); // Right
+            default -> throw new IllegalStateException(
+                    "Unexpected positional index outside of allowed range (0-7): " + locIndex);
+        };
+    }
+
+    public static float getScaleTranslateY(int locIndex, int height, float scale) {
+        return switch(locIndex) {
+            case 0, 1, 2 -> 0.0F; // Top
+            case 3, 7 -> (height / 2.0F) * (1 - scale); // Center
+            case 4, 5, 6 -> (height - 2) * (1 - scale); // Bottom
             default -> throw new IllegalStateException(
                     "Unexpected positional index outside of allowed range (0-7): " + locIndex);
         };
