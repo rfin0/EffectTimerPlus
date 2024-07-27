@@ -26,14 +26,16 @@ focus on customization.
 #### Features
 
 - Fully adjustable text color and opacity
-- Adjustable text background
+- Optional text shadow
+- Optional and adjustable text background
 - 8 options for text position
 - Optional low-time warning color and flash
 - Option to disable either indicator separately
 - Option to hide timer on ambient (beacon) effects
 - Scaling option to change the size of effect icons
+- Scaling option to change the text size relative to the effect icon
 
-<img alt="Showcase" src="https://i.postimg.cc/C1vDrKVN/effectinfo-showcase.png" width="637">
+<img alt="Showcase" src="https://raw.githubusercontent.com/TerminalMC/EffectTimerPlus/HEAD/assets/images/showcase/effects.png" width="500">
 
 ### Credits
 
