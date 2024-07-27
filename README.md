@@ -37,6 +37,12 @@ focus on customization.
 
 <img alt="Showcase" src="https://raw.githubusercontent.com/TerminalMC/EffectTimerPlus/HEAD/assets/images/showcase/effects.png" width="500">
 
+### Dependencies
+
+Fabric: [ModMenu](https://modrinth.com/mod/mOgUt4GM), [YACL](https://modrinth.com/mod/1eAoo2KR)
+
+NeoForge: [YACL](https://modrinth.com/mod/1eAoo2KR)
+
 ### Credits
 
 EffectTimerPlus includes derivative work of code from [Status Effect Timer](https://github.com/magicus/statuseffecttimer/)
