@@ -24,10 +24,10 @@ public class Config {
     public static final double defaultScale = 1.0F;
     public double scale = defaultScale;
 
-    public static final double defaultPotencyScale = 1.0F;
+    public static final double defaultPotencyScale = 0.7F;
     public double potencyScale = defaultPotencyScale;
 
-    public static final double defaultTimerScale = 1.0F;
+    public static final double defaultTimerScale = 0.7F;
     public double timerScale = defaultTimerScale;
 
     public static final boolean defaultPotencyEnabled = true;
