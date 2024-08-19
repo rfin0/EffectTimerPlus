@@ -1,2 +1,1 @@
-- Support use of vanilla text shadow
-- Allow text scaling relative to icon scale
+- Add Ukrainian translation (Tarteroycc)
