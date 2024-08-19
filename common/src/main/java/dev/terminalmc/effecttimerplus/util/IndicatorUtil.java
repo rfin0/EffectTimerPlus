@@ -4,7 +4,6 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.world.effect.MobEffectInstance;
 
 public class IndicatorUtil {
-    public static final int SPRITE_SIZE = 24;
     public static final int SPRITE_BORDER = 3;
 
     /**
@@ -78,11 +77,11 @@ public class IndicatorUtil {
      * @return the X-axis offset.
      * @throws IllegalStateException if the given index is invalid.
      */
-    public static int getTextOffsetX(int locIndex, int labelWidth) {
+    public static int getTextOffsetX(int locIndex, int labelWidth, int spriteWidth) {
         return switch (locIndex) {
             case 0, 6, 7 -> SPRITE_BORDER; // Left
-            case 1, 5 -> (SPRITE_SIZE / 2) - (labelWidth / 2); // Center
-            case 2, 3, 4 -> SPRITE_SIZE - SPRITE_BORDER - (labelWidth - 1); // Right
+            case 1, 5 -> (spriteWidth / 2) - (labelWidth / 2); // Center
+            case 2, 3, 4 -> spriteWidth - SPRITE_BORDER - (labelWidth - 1); // Right
             default -> throw new IllegalStateException(
                     "Unexpected positional index outside of allowed range (0-7): " + locIndex);
         };
@@ -95,11 +94,11 @@ public class IndicatorUtil {
      * @return the Y-axis offset.
      * @throws IllegalStateException if the given index is invalid.
      */
-    public static int getTextOffsetY(int locIndex, int labelHeight) {
+    public static int getTextOffsetY(int locIndex, int labelHeight, int spriteHeight) {
         return switch (locIndex) {
             case 0, 1, 2 -> SPRITE_BORDER; // Top
-            case 3, 7 -> (SPRITE_SIZE / 2) - (labelHeight / 2); // Center
-            case 4, 5, 6 -> SPRITE_SIZE - SPRITE_BORDER - (labelHeight - 2); // Bottom
+            case 3, 7 -> (spriteHeight / 2) - (labelHeight / 2); // Center
+            case 4, 5, 6 -> spriteHeight - SPRITE_BORDER - (labelHeight - 2); // Bottom
             default -> throw new IllegalStateException(
                     "Unexpected positional index outside of allowed range (0-7): " + locIndex);
         };

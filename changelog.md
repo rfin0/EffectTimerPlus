@@ -1,1 +1,2 @@
 - Add Ukrainian translation (Tarteroycc)
+- Improve GUI mixin

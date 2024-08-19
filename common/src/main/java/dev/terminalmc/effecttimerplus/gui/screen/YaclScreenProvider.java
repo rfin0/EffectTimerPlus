@@ -341,20 +341,23 @@ public class YaclScreenProvider {
             int targetHeight = space;
             int maxX = (int)(x + width / scale);
 
+            int spriteSize = 24;
+            int iconSize = 18;
+
             for (MobEffectInstance effect : DEMO_EFFECTS) {
                 if (effect.isAmbient()) {
-                    graphics.blitSprite(GuiAccessor.getEffectBackgroundAmbientSprite(), movingX, movingY, 24, 24);
+                    graphics.blitSprite(GuiAccessor.getEffectBackgroundAmbientSprite(), movingX, movingY, spriteSize, spriteSize);
                 } else {
-                    graphics.blitSprite(GuiAccessor.getEffectBackgroundSprite(), movingX, movingY, 24, 24);
+                    graphics.blitSprite(GuiAccessor.getEffectBackgroundSprite(), movingX, movingY, spriteSize, spriteSize);
                 }
-                graphics.blit(movingX + 3, movingY + 3, 0, 18, 18, mc.getMobEffectTextures().get(effect.getEffect()));
+                graphics.blit(movingX + 3, movingY + 3, 0, iconSize, iconSize, mc.getMobEffectTextures().get(effect.getEffect()));
 
                 // Render potency overlay
                 if (potencyEnabled && effect.getAmplifier() > 0) {
                     String label = IndicatorUtil.getAmplifierAsString(effect.getAmplifier());
                     int labelWidth = mc.font.width(label);
-                    int pX = movingX + IndicatorUtil.getTextOffsetX(potencyLocation, labelWidth);
-                    int pY = movingY + IndicatorUtil.getTextOffsetY(potencyLocation, mc.font.lineHeight);
+                    int pX = movingX + IndicatorUtil.getTextOffsetX(potencyLocation, labelWidth, spriteSize);
+                    int pY = movingY + IndicatorUtil.getTextOffsetY(potencyLocation, mc.font.lineHeight, spriteSize);
 
                     graphics.pose().pushPose();
                     graphics.pose().translate(pX * (1 - potencyScale), pY * (1 - potencyScale), 0.0F);
@@ -371,8 +374,8 @@ public class YaclScreenProvider {
                 if (timerEnabled && (timerEnabledAmbient || !effect.isAmbient())) {
                     String label = IndicatorUtil.getDurationAsString(effect.getDuration());
                     int labelWidth = mc.font.width(label);
-                    int pX = movingX + IndicatorUtil.getTextOffsetX(timerLocation, labelWidth);
-                    int pY = movingY + IndicatorUtil.getTextOffsetY(timerLocation, mc.font.lineHeight);
+                    int pX = movingX + IndicatorUtil.getTextOffsetX(timerLocation, labelWidth, spriteSize);
+                    int pY = movingY + IndicatorUtil.getTextOffsetY(timerLocation, mc.font.lineHeight, spriteSize);
 
                     graphics.pose().pushPose();
                     graphics.pose().translate(pX * (1 - timerScale), pY * (1 - timerScale), 0.0F);
