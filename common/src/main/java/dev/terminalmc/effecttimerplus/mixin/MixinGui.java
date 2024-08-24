@@ -5,7 +5,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import dev.terminalmc.effecttimerplus.config.Config;
-import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
@@ -14,10 +13,9 @@ import net.minecraft.world.effect.MobEffectInstance;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 import static dev.terminalmc.effecttimerplus.util.IndicatorUtil.*;
 
@@ -32,22 +30,16 @@ public class MixinGui {
     @Nullable
     private Runnable effectTimerPlus$runnable;
 
-    @Inject(
-            method = "renderEffects",
-            at = @At("HEAD")
-    )
-    private void scale(GuiGraphics graphics, DeltaTracker delta, CallbackInfo ci) {
+    @Unique
+    private void effectTimerPlus$scale(GuiGraphics graphics) {
         float scale = (float) Config.get().scale;
         graphics.pose().pushPose();
         graphics.pose().translate(graphics.guiWidth() * (1 - scale), 0.0F, 0.0F);
         graphics.pose().scale(scale, scale, 0.0F);
     }
 
-    @Inject(
-            method = "renderEffects",
-            at = @At("RETURN")
-    )
-    private void descale(GuiGraphics graphics, DeltaTracker delta, CallbackInfo ci) {
+    @Unique
+    private void effectTimerPlus$descale(GuiGraphics graphics) {
         graphics.pose().popPose();
     }
 
@@ -61,7 +53,9 @@ public class MixinGui {
     private void CreateOverlayRunnable(GuiGraphics graphics, ResourceLocation sprite, int x, int y,
                                        int width, int height, Operation<Void> original,
                                        @Local MobEffectInstance effectInstance) {
+        effectTimerPlus$scale(graphics);
         original.call(graphics, sprite, x, y, width, height);
+        effectTimerPlus$descale(graphics);
 
         Config options = Config.get();
         effectTimerPlus$runnable = () -> {
@@ -124,5 +118,21 @@ public class MixinGui {
             effectTimerPlus$runnable = null;
         }
         return original;
+    }
+
+    @WrapOperation(
+            method = "renderEffects",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Ljava/util/List;forEach(Ljava/util/function/Consumer;)V"
+            )
+    )
+    private void scale(List instance, Consumer consumer, Operation<Void> original,
+                       @Local(argsOnly = true) GuiGraphics graphics) {
+        effectTimerPlus$scale(graphics);
+
+        original.call(instance, consumer);
+
+        effectTimerPlus$descale(graphics);
     }
 }
