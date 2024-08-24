@@ -20,10 +20,10 @@ Adds a potency indicator and countdown overlay to status effect icons.
 
 ### About
 
-EffectTimerPlus is a functional expansion of [Status Effect Timer](https://modrinth.com/mod/T9FDHbY5/), with a
-focus on customization.
+EffectTimerPlus is inspired by [Status Effect Timer](https://modrinth.com/mod/T9FDHbY5), but has a focus on 
+customizability.
 
-#### Features
+### Features
 
 - Fully adjustable text color and opacity
 - Optional text shadow
@@ -39,17 +39,22 @@ focus on customization.
 
 ### Dependencies
 
-Fabric: [ModMenu](https://modrinth.com/mod/mOgUt4GM), [YACL](https://modrinth.com/mod/1eAoo2KR)
+Fabric: [Fabric API](https://modrinth.com/mod/P7dR8mSH/), [ModMenu](https://modrinth.com/mod/mOgUt4GM), [YACL](https://modrinth.com/mod/1eAoo2KR)
 
 NeoForge: [YACL](https://modrinth.com/mod/1eAoo2KR)
 
+### Compatibility
+
+Sometimes the scaling option can cause problems for other mods. If you encounter issues, please report on Discord or GitHub.
+
 ### Credits
 
-EffectTimerPlus includes derivative work of code from [Status Effect Timer](https://github.com/magicus/statuseffecttimer/)
+EffectTimerPlus began as an update of [Status Effect Timer](https://github.com/magicus/statuseffecttimer) 
+by [magicus](https://github.com/magicus)
 
 ### License
 
-[LGPL-3.0-only](https://www.gnu.org/licenses/lgpl-3.0.html)
+EffectTimerPlus is licensed [LGPL-3.0-only](https://www.gnu.org/licenses/lgpl-3.0.html) due to being a technical derivation of Status Effect Timer.
 
 ### Contact
 

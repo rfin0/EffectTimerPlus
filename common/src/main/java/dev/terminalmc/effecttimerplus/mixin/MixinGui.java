@@ -21,6 +21,10 @@ import java.util.List;
 
 import static dev.terminalmc.effecttimerplus.util.IndicatorUtil.*;
 
+/**
+ * This file includes derivative work of code from
+ * <a href="https://github.com/magicus/statuseffecttimer">Status Effect Timer</a>
+ */
 @Mixin(value = Gui.class, priority = 2000)
 public class MixinGui {
 
