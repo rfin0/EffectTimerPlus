@@ -1,2 +1,2 @@
 - Add Ukrainian translation (Tarteroycc)
-- Improve GUI mixin
+- Improve compatibility with Simple Voice Chat
