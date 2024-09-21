@@ -1,0 +1,2 @@
+- Update icon
+- Fix config on recent NeoForge versions
