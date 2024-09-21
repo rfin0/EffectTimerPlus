@@ -1,2 +1,0 @@
-- Add Ukrainian translation (Tarteroycc)
-- Improve compatibility with Simple Voice Chat
