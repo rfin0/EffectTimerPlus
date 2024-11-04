@@ -1,7 +1,7 @@
 {
   "effecttimerplus.name": "EffectTimerPlus",
-  "message.effecttimerplus.go_modrinth": "Переглянути на Modrinth",
-  "message.effecttimerplus.install_yacl": "Встановіть Yet Another Config Lib, щоб отримати доступ до опцій модифікації",
+  "message.effecttimerplus.viewModrinth": "Переглянути на Modrinth",
+  "message.effecttimerplus.installYacl": "Встановіть Yet Another Config Lib, щоб отримати доступ до опцій модифікації",
   "option.effecttimerplus.location.0": "Вгорі ліворуч",
   "option.effecttimerplus.location.1": "Вгорі по центру",
   "option.effecttimerplus.location.2": "Вгорі праворуч",
@@ -33,6 +33,5 @@
   "option.effecttimerplus.timer.warn.enabled": "Попереджувальний колір",
   "option.effecttimerplus.timer.warn.flash.enabled": "Попереджувальний спалах",
   "option.effecttimerplus.timer.warn.time": "Час попередження",
-  "option.effecttimerplus.timer.warn.time.value": "%d секунд",
-  "screen.effecttimerplus.options": "Опції EffectTimerPlus"
+  "option.effecttimerplus.timer.warn.time.value": "%d секунд"
 }

@@ -1,10 +1,29 @@
+/*
+ * EffectTimerPlus
+ * Copyright (C) 2024 magicus
+ * Copyright (C) 2024 TerminalMC
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package dev.terminalmc.effecttimerplus.gui.screen;
 
 import dev.isxander.yacl3.api.*;
 import dev.isxander.yacl3.api.controller.*;
 import dev.isxander.yacl3.gui.image.ImageRenderer;
 import dev.terminalmc.effecttimerplus.config.Config;
-import dev.terminalmc.effecttimerplus.mixin.GuiAccessor;
+import dev.terminalmc.effecttimerplus.mixin.accessor.GuiAccessor;
 import dev.terminalmc.effecttimerplus.util.IndicatorUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -32,7 +51,7 @@ public class YaclScreenProvider {
         Preview preview = new Preview();
 
         YetAnotherConfigLib.Builder builder = YetAnotherConfigLib.createBuilder()
-                .title(localized("screen", "options"))
+                .title(localized("name"))
                 .save(Config::save);
 
         ConfigCategory.Builder timerCat = ConfigCategory.createBuilder()
@@ -41,7 +60,7 @@ public class YaclScreenProvider {
         timerCat.option(Option.<Boolean>createBuilder()
                 .name(localized("option", "timer.enabled"))
                 .description(OptionDescription.createBuilder().customImage(preview).build())
-                .listener((option, val) -> preview.timerEnabled = val)
+                .addListener((option, event) -> preview.timerEnabled = option.pendingValue())
                 .binding(Config.defaultTimerEnabled,
                         () -> options.timerEnabled,
                         val -> options.timerEnabled = val)
@@ -51,7 +70,7 @@ public class YaclScreenProvider {
         timerCat.option(Option.<Boolean>createBuilder()
                 .name(localized("option", "timer.ambient.enabled"))
                 .description(OptionDescription.createBuilder().customImage(preview).build())
-                .listener((option, val) -> preview.timerEnabledAmbient = val)
+                .addListener((option, event) -> preview.timerEnabledAmbient = option.pendingValue())
                 .binding(Config.defaultTimerEnabledAmbient,
                         () -> options.timerEnabledAmbient,
                         val -> options.timerEnabledAmbient = val)
@@ -61,7 +80,7 @@ public class YaclScreenProvider {
         timerCat.option(Option.<Boolean>createBuilder()
                 .name(localized("option", "timer.warn.enabled"))
                 .description(OptionDescription.createBuilder().customImage(preview).build())
-                .listener((option, val) -> preview.timerWarnEnabled = val)
+                .addListener((option, event) -> preview.timerWarnEnabled = option.pendingValue())
                 .binding(Config.defaultTimerWarnEnabled,
                         () -> options.timerWarnEnabled,
                         val -> options.timerWarnEnabled = val)
@@ -71,7 +90,7 @@ public class YaclScreenProvider {
         timerCat.option(Option.<Boolean>createBuilder()
                 .name(localized("option", "timer.warn.flash.enabled"))
                 .description(OptionDescription.createBuilder().customImage(preview).build())
-                .listener((option, val) -> preview.timerFlashEnabled = val)
+                .addListener((option, event) -> preview.timerFlashEnabled = option.pendingValue())
                 .binding(Config.defaultTimerFlashEnabled,
                         () -> options.timerFlashEnabled,
                         val -> options.timerFlashEnabled = val)
@@ -81,7 +100,7 @@ public class YaclScreenProvider {
         timerCat.option(Option.<Color>createBuilder()
                 .name(localized("option", "timer.color"))
                 .description(OptionDescription.createBuilder().customImage(preview).build())
-                .listener((option, val) -> preview.timerColor = fixAlpha(val.getRGB()))
+                .addListener((option, event) -> preview.timerColor = fixAlpha(option.pendingValue().getRGB()))
                 .binding(fromArgb(Config.defaultTimerColor),
                         () -> fromArgb(options.timerColor),
                         val -> options.timerColor = fixAlpha(val.getRGB()))
@@ -91,7 +110,7 @@ public class YaclScreenProvider {
         timerCat.option(Option.<Boolean>createBuilder()
                 .name(localized("option", "timer.shadow.enabled"))
                 .description(OptionDescription.createBuilder().customImage(preview).build())
-                .listener((option, val) -> preview.timerShadow = val)
+                .addListener((option, event) -> preview.timerShadow = option.pendingValue())
                 .binding(Config.defaultTimerShadow,
                         () -> options.timerShadow,
                         val -> options.timerShadow = val)
@@ -101,7 +120,7 @@ public class YaclScreenProvider {
         timerCat.option(Option.<Boolean>createBuilder()
                 .name(localized("option", "timer.back.enabled"))
                 .description(OptionDescription.createBuilder().customImage(preview).build())
-                .listener((option, val) -> preview.timerBack = val)
+                .addListener((option, event) -> preview.timerBack = option.pendingValue())
                 .binding(Config.defaultTimerBack,
                         () -> options.timerBack,
                         val -> options.timerBack = val)
@@ -111,7 +130,7 @@ public class YaclScreenProvider {
         timerCat.option(Option.<Color>createBuilder()
                 .name(localized("option", "timer.back.color"))
                 .description(OptionDescription.createBuilder().customImage(preview).build())
-                .listener((option, val) -> preview.timerBackColor = fixAlpha(val.getRGB()))
+                .addListener((option, event) -> preview.timerBackColor = fixAlpha(option.pendingValue().getRGB()))
                 .binding(fromArgb(Config.defaultTimerBackColor),
                         () -> fromArgb(options.timerBackColor),
                         val -> options.timerBackColor = fixAlpha(val.getRGB()))
@@ -121,7 +140,7 @@ public class YaclScreenProvider {
         timerCat.option(Option.<Color>createBuilder()
                 .name(localized("option", "timer.warn.color"))
                 .description(OptionDescription.createBuilder().customImage(preview).build())
-                .listener((option, val) -> preview.timerWarnColor = fixAlpha(val.getRGB()))
+                .addListener((option, event) -> preview.timerWarnColor = fixAlpha(option.pendingValue().getRGB()))
                 .binding(fromArgb(Config.defaultTimerWarnColor),
                         () -> fromArgb(options.timerWarnColor),
                         val -> options.timerWarnColor = fixAlpha(val.getRGB()))
@@ -131,7 +150,7 @@ public class YaclScreenProvider {
         timerCat.option(Option.<Integer>createBuilder()
                 .name(localized("option", "timer.warn.time"))
                 .description(OptionDescription.createBuilder().customImage(preview).build())
-                .listener((option, val) -> preview.timerWarnTime = val)
+                .addListener((option, event) -> preview.timerWarnTime = option.pendingValue())
                 .binding(Config.defaultTimerWarnTime,
                         () -> options.timerWarnTime,
                         val -> options.timerWarnTime = val)
@@ -145,7 +164,7 @@ public class YaclScreenProvider {
         timerCat.option(Option.<Integer>createBuilder()
                 .name(localized("option", "timer.location"))
                 .description(OptionDescription.createBuilder().customImage(preview).build())
-                .listener((option, val) -> preview.timerLocation = val)
+                .addListener((option, event) -> preview.timerLocation = option.pendingValue())
                 .binding(Config.defaultTimerLocation,
                         () -> options.timerLocation,
                         val -> options.timerLocation = val)
@@ -161,7 +180,7 @@ public class YaclScreenProvider {
         potencyCat.option(Option.<Boolean>createBuilder()
                 .name(localized("option", "potency.enabled"))
                 .description(OptionDescription.createBuilder().customImage(preview).build())
-                .listener((option, val) -> preview.potencyEnabled = val)
+                .addListener((option, event) -> preview.potencyEnabled = option.pendingValue())
                 .binding(Config.defaultPotencyEnabled,
                         () -> options.potencyEnabled,
                         val -> options.potencyEnabled = val)
@@ -171,7 +190,7 @@ public class YaclScreenProvider {
         potencyCat.option(Option.<Color>createBuilder()
                 .name(localized("option", "potency.color"))
                 .description(OptionDescription.createBuilder().customImage(preview).build())
-                .listener((option, val) -> preview.potencyColor = fixAlpha(val.getRGB()))
+                .addListener((option, event) -> preview.potencyColor = fixAlpha(option.pendingValue().getRGB()))
                 .binding(fromArgb(Config.defaultPotencyColor),
                         () -> fromArgb(options.potencyColor),
                         val -> options.potencyColor = fixAlpha(val.getRGB()))
@@ -181,7 +200,7 @@ public class YaclScreenProvider {
         potencyCat.option(Option.<Boolean>createBuilder()
                 .name(localized("option", "potency.shadow.enabled"))
                 .description(OptionDescription.createBuilder().customImage(preview).build())
-                .listener((option, val) -> preview.potencyShadow = val)
+                .addListener((option, event) -> preview.potencyShadow = option.pendingValue())
                 .binding(Config.defaultPotencyShadow,
                         () -> options.potencyShadow,
                         val -> options.potencyShadow = val)
@@ -191,7 +210,7 @@ public class YaclScreenProvider {
         potencyCat.option(Option.<Boolean>createBuilder()
                 .name(localized("option", "potency.back.enabled"))
                 .description(OptionDescription.createBuilder().customImage(preview).build())
-                .listener((option, val) -> preview.potencyBack = val)
+                .addListener((option, event) -> preview.potencyBack = option.pendingValue())
                 .binding(Config.defaultPotencyBack,
                         () -> options.potencyBack,
                         val -> options.timerBack = val)
@@ -201,7 +220,7 @@ public class YaclScreenProvider {
         potencyCat.option(Option.<Color>createBuilder()
                 .name(localized("option", "potency.back.color"))
                 .description(OptionDescription.createBuilder().customImage(preview).build())
-                .listener((option, val) -> preview.potencyBackColor = fixAlpha(val.getRGB()))
+                .addListener((option, event) -> preview.potencyBackColor = fixAlpha(option.pendingValue().getRGB()))
                 .binding(fromArgb(Config.defaultPotencyBackColor),
                         () -> fromArgb(options.potencyBackColor),
                         val -> options.potencyBackColor = fixAlpha(val.getRGB()))
@@ -211,7 +230,7 @@ public class YaclScreenProvider {
         potencyCat.option(Option.<Integer>createBuilder()
                 .name(localized("option", "potency.location"))
                 .description(OptionDescription.createBuilder().customImage(preview).build())
-                .listener((option, val) -> preview.potencyLocation = val)
+                .addListener((option, event) -> preview.potencyLocation = option.pendingValue())
                 .binding(Config.defaultPotencyLocation,
                         () -> options.potencyLocation,
                         val -> options.potencyLocation = val)
@@ -226,7 +245,7 @@ public class YaclScreenProvider {
         scaleCat.option(Option.<Double>createBuilder()
                 .name(localized("option", "scale.icon"))
                 .description(OptionDescription.createBuilder().customImage(preview).build())
-                .listener((option, val) -> preview.scale = val)
+                .addListener((option, event) -> preview.scale = option.pendingValue())
                 .binding(Config.defaultScale,
                         () -> options.scale,
                         val -> options.scale = val)
@@ -238,7 +257,7 @@ public class YaclScreenProvider {
         scaleCat.option(Option.<Double>createBuilder()
                 .name(localized("option", "scale.timer"))
                 .description(OptionDescription.createBuilder().customImage(preview).build())
-                .listener((option, val) -> preview.timerScale = val)
+                .addListener((option, event) -> preview.timerScale = option.pendingValue())
                 .binding(Config.defaultTimerScale,
                         () -> options.timerScale,
                         val -> options.timerScale = val)
@@ -250,7 +269,7 @@ public class YaclScreenProvider {
         scaleCat.option(Option.<Double>createBuilder()
                 .name(localized("option", "scale.potency"))
                 .description(OptionDescription.createBuilder().customImage(preview).build())
-                .listener((option, val) -> preview.potencyScale = val)
+                .addListener((option, event) -> preview.potencyScale = option.pendingValue())
                 .binding(Config.defaultPotencyScale,
                         () -> options.potencyScale,
                         val -> options.potencyScale = val)

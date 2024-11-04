@@ -1,7 +1,7 @@
 {
   "effecttimerplus.name": "EffectTimerPlus",
-  "message.effecttimerplus.go_modrinth": "View on Modrinth",
-  "message.effecttimerplus.install_yacl": "Install Yet Another Config Lib to access mod options",
+  "message.effecttimerplus.viewModrinth": "View on Modrinth",
+  "message.effecttimerplus.installYacl": "Install Yet Another Config Lib to access mod options",
   "option.effecttimerplus.location.0": "Top left",
   "option.effecttimerplus.location.1": "Top center",
   "option.effecttimerplus.location.2": "Top Right",
@@ -33,6 +33,5 @@
   "option.effecttimerplus.timer.warn.enabled": "Warning Color",
   "option.effecttimerplus.timer.warn.flash.enabled": "Warning Flash",
   "option.effecttimerplus.timer.warn.time": "Warning Time",
-  "option.effecttimerplus.timer.warn.time.value": "%d sec",
-  "screen.effecttimerplus.options": "EffectTimerPlus Options"
+  "option.effecttimerplus.timer.warn.time.value": "%d sec"
 }
