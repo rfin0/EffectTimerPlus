@@ -48,15 +48,14 @@ Sometimes the scaling option can cause problems for other mods. If you encounter
 
 ### Credits
 
-EffectTimerPlus began as an update of [Status Effect Timer](https://github.com/magicus/statuseffecttimer) 
-by [magicus](https://github.com/magicus)
-
-### License
-
-EffectTimerPlus inherits the [LGPL-3.0-only](https://www.gnu.org/licenses/lgpl-3.0.html) license from Status Effect Timer.
+EffectTimerPlus includes derivative work of code from 
+[Status Effect Timer](https://github.com/magicus/statuseffecttimer) by [magicus](https://github.com/magicus)
 
 ### Contact
 
 [![Discord Server](https://img.shields.io/discord/1103153365216669797?logo=discord&label=Discord%20Server&color=%235865F2)](https://discord.terminalmc.dev)
 
 [![GitHub Issues](https://img.shields.io/github/issues/TerminalMC/EffectTimerPlus?logo=github&label=GitHub%20Issues)](https://github.com/TerminalMC/EffectTimerPlus/issues)
+
+[![License](https://img.shields.io/github/license/TerminalMC/EffectTimerPlus?label=License&logo=github&logoColor=white)](https://github.com/TerminalMC/EffectTimerPlus/blob/HEAD/LICENSE.txt)
+
