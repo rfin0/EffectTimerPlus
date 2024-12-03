@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.6
+
+- Fixed YACL mod ID in dependencies
+
 ## 2.2.5
 
 - Added Russian translation (rfin0)
