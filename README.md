@@ -58,4 +58,3 @@ EffectTimerPlus includes derivative work of code from
 [![GitHub Issues](https://img.shields.io/github/issues/TerminalMC/EffectTimerPlus?logo=github&label=GitHub%20Issues)](https://github.com/TerminalMC/EffectTimerPlus/issues)
 
 [![License](https://img.shields.io/github/license/TerminalMC/EffectTimerPlus?label=License&logo=github&logoColor=white)](https://github.com/TerminalMC/EffectTimerPlus/blob/HEAD/LICENSE.txt)
-
