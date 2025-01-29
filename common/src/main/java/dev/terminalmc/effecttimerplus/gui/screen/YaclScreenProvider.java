@@ -211,7 +211,7 @@ public class YaclScreenProvider {
                 .addListener((option, event) -> preview.potencyBack = option.pendingValue())
                 .binding(Config.defaultPotencyBack,
                         () -> options.potencyBack,
-                        val -> options.timerBack = val)
+                        val -> options.potencyBack = val)
                 .controller(option -> BooleanControllerBuilder.create(option).coloured(true))
                 .build());
 

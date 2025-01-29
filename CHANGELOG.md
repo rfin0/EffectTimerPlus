@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.7
+
+- Fixed potency background toggle option not working
+
 ## 2.2.6
 
 - Fixed YACL mod ID in dependencies
