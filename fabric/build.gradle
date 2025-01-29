@@ -16,12 +16,12 @@ dependencies {
 
     // JiJ MixinExtras if required to be newer than minimum loader-provided version
 //    include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:${mixinextras_version}")))
-
-    // Modmenu
-    modImplementation("maven.modrinth:mOgUt4GM:${modmenu_version}")
     
     // YACL
     modApi("dev.isxander:yet-another-config-lib:${yacl_version}-fabric")
+
+    // ModMenu
+    modImplementation("maven.modrinth:mOgUt4GM:${modmenu_version}")
 }
 
 loom {
