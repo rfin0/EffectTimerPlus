@@ -3,6 +3,7 @@
 ## 2.2.7
 
 - Fixed potency background toggle option not working
+- Added German translation (kr8gz)
 
 ## 2.2.6
 
